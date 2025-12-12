@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-12 Cybersecurity Incident Response Training</title>
+    <title>Cybersecurity Incident Response Game</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,13 +133,6 @@
             border-radius: 12px;
             margin-bottom: 15px;
         }
-        .warning-box {
-            background: rgba(251, 191, 36, 0.15);
-            border: 2px solid #fbbf24;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
         h1 { font-size: 36px; margin-bottom: 10px; text-align: center; }
         h2 { font-size: 28px; margin-bottom: 20px; color: #28ABE2; }
         h3 { font-size: 20px; margin-bottom: 15px; color: #28ABE2; }
@@ -166,294 +159,70 @@
     <script type="text/babel">
         const scenarios = {
             ransomware: {
-                title: "Ransomware Attack on Student Information System",
-                description: "Your district's student information system has been hit by ransomware. Student records, grades, and attendance data are encrypted. A ransom note demands payment to decrypt FERPA-protected student data.",
+                title: "Ransomware Attack on File Server",
+                description: "Your organization's file server has been encrypted by ransomware. Critical files are inaccessible and a ransom note demands payment in cryptocurrency.",
                 icon: "🔒",
                 rounds: [
                     {
-                        title: "Initial Discovery & Reporting",
+                        title: "Initial Discovery",
                         questions: [
                             {
-                                question: "A teacher reports that the grade book system is showing encrypted files with a ransom demand. What is your FIRST action?",
+                                question: "You discover files on the server are encrypted with a .locked extension. What is your FIRST action?",
                                 choices: [
-                                    { text: "Immediately shut down the student information system server", points: 4, feedback: "Isolation is important, but shutting down may lose forensic evidence. Better to disconnect from network while leaving running." },
-                                    { text: "Disconnect the server from the network but leave it running, then alert your IT director", points: 10, feedback: "Excellent! This isolates the threat, preserves evidence, and initiates proper chain of command notification." },
-                                    { text: "Tell teachers to avoid using the system until further notice", points: 2, feedback: "User notification is needed, but technical containment must happen first to prevent spread." },
-                                    { text: "Try to restore files from the recycle bin", points: 0, feedback: "Encrypted files can't be recovered this way. Focus on containment and proper incident response procedures." }
+                                    { text: "Immediately shut down the file server to contain the threat", points: 4, feedback: "While isolation is important, shutting down may lose volatile evidence and interrupt running security tools." },
+                                    { text: "Disconnect the server from the network but leave it running", points: 10, feedback: "Excellent! This isolates the threat while preserving evidence and allowing forensic analysis." },
+                                    { text: "Try to decrypt files using online tools", points: 2, feedback: "This wastes valuable time and could worsen the situation. Containment should be your priority." },
+                                    { text: "Contact the attackers to negotiate", points: 0, feedback: "Never contact attackers as your first step. You need to assess the situation and contain the threat first." }
                                 ]
                             },
                             {
-                                question: "After isolating the system, you must report this incident. Under Georgia HB156, what is your reporting requirement?",
+                                question: "After isolating the server, you find a ransom note demanding $50,000 in Bitcoin. Under Georgia HB156, what is your reporting requirement?",
                                 choices: [
-                                    { text: "Report to GEMA/HS within one hour via GTA help desk (877) 482-3233, Option 2, and contact your insurance agency", points: 10, feedback: "Perfect! Georgia HB156 requires one-hour reporting to GEMA/HS. Insurance notification is also critical for potential coverage." },
-                                    { text: "Wait until Monday to report during business hours", points: 0, feedback: "HB156 requires immediate reporting within one hour, 24/7. Delays violate compliance and prevent timely state support." },
-                                    { text: "Only notify the superintendent and school board", points: 3, feedback: "Internal notification is important, but Georgia law requires reporting to GEMA/HS within one hour via GTA at (877) 482-3233." },
-                                    { text: "Report to the FBI and local police only", points: 5, feedback: "Law enforcement should be contacted, but Georgia HB156 specifically mandates reporting to GEMA/HS within one hour." }
+                                    { text: "Report to GEMA/HS within one hour and activate your incident response team", points: 10, feedback: "Excellent! Georgia HB156 requires reporting to GEMA/HS within one hour of recognizing a cyber incident. This ensures state coordination and support." },
+                                    { text: "Wait 24 hours to assess the situation before reporting", points: 0, feedback: "Georgia law requires reporting within one hour. Delays violate compliance requirements and prevent timely assistance." },
+                                    { text: "Only report if you can't recover from backups", points: 2, feedback: "All qualifying cyber incidents must be reported to GEMA/HS within one hour, regardless of your recovery capability." },
+                                    { text: "Report to local law enforcement only", points: 4, feedback: "While law enforcement contact is good, Georgia HB156 specifically requires reporting to GEMA/HS within one hour." }
                                 ]
                             },
                             {
-                                question: "Your backups were last run 24 hours ago and appear intact. The encrypted system contains FERPA-protected student records. What's your next step?",
+                                question: "Your backups are available but were last run 48 hours ago. How do you proceed?",
                                 choices: [
-                                    { text: "Immediately restore from backup to all systems to minimize downtime", points: 4, feedback: "Rushing restoration without securing the entry point and verifying backup integrity risks reinfection." },
-                                    { text: "Test backup integrity, identify attack vector, ensure it's closed, assess FERPA data exposure, then restore", points: 10, feedback: "Excellent! Systematic approach ensures clean restoration and assesses if FERPA breach notification is required." },
-                                    { text: "Pay the ransom to avoid FERPA violations", points: 0, feedback: "Paying doesn't prevent FERPA violations and encourages attacks. Proper restoration and breach assessment is correct." },
-                                    { text: "Keep the infected system online while restoring to compare", points: 1, feedback: "Never keep infected systems connected during restoration. This risks spreading ransomware to restored systems." }
+                                    { text: "Restore from backups immediately to all systems", points: 5, feedback: "Restoring without verifying backup integrity or addressing the entry point could reinfect systems." },
+                                    { text: "Test backup integrity, verify the attack vector is closed, then restore", points: 10, feedback: "Excellent! Systematic restoration after securing the environment prevents reinfection." },
+                                    { text: "Wait for law enforcement before touching anything", points: 3, feedback: "While law enforcement should be contacted, business continuity requires you to act with proper protocols." },
+                                    { text: "Restore backups while keeping the infected server online for analysis", points: 2, feedback: "Keeping infected systems connected during restoration risks spreading the ransomware to restored systems." }
                                 ]
                             }
                         ]
                     },
                     {
-                        title: "Investigation & Data Protection",
+                        title: "Investigation & Response",
                         questions: [
                             {
-                                question: "Investigation reveals the ransomware entered through a phishing email to a teacher. How do you properly report this per HB156?",
+                                question: "Your security team identifies the initial infection came through a phishing email. How do you properly report this under Georgia HB156?",
                                 choices: [
-                                    { text: "Call GTA help desk at (877) 482-3233, Option 2, state 'Declaring a Cyber-Security Event,' provide details", points: 10, feedback: "Perfect! This is the exact Georgia HB156 reporting protocol. GTA coordinates state response resources 24/7." },
-                                    { text: "Send an email to the district superintendent", points: 2, feedback: "Superintendent should be notified, but HB156 requires calling GTA immediately at (877) 482-3233, Option 2." },
-                                    { text: "Fill out an online incident form on your district website", points: 3, feedback: "Internal documentation is good, but HB156 requires immediate phone reporting to GTA within one hour." },
-                                    { text: "Discipline the teacher who clicked the phishing link", points: 0, feedback: "Punishment discourages reporting. Focus on proper HB156 reporting and system-wide security improvements." }
+                                    { text: "Call GTA help desk at (877) 482-3233, Option 2, say 'Declaring a Cyber-Security Event,' and provide incident details", points: 10, feedback: "Perfect! This is the exact Georgia HB156 reporting procedure. GTA is available 24/7 and will coordinate state response resources." },
+                                    { text: "Send an email to your local police department", points: 2, feedback: "Local law enforcement should be contacted, but Georgia HB156 requires calling GTA help desk within one hour at (877) 482-3233, Option 2." },
+                                    { text: "Fill out an online form when you have time", points: 4, feedback: "Georgia HB156 requires immediate phone reporting within one hour to GTA at (877) 482-3233, Option 2, not delayed online submission." },
+                                    { text: "Wait until you have complete information before reporting", points: 0, feedback: "Report immediately within one hour per HB156. You can provide initial information and update as the investigation progresses." }
                                 ]
                             },
                             {
-                                question: "You discover the attackers had network access for 3 days before deploying ransomware. Student PII may have been accessed. What's your priority?",
+                                question: "You discover the attackers had access to your network for 5 days before deploying ransomware. What should you investigate?",
                                 choices: [
-                                    { text: "Only investigate the student information system", points: 2, feedback: "Attackers had 3 days for lateral movement. Check all systems for compromise and data exfiltration." },
-                                    { text: "Investigate all systems, check for data exfiltration, assess FERPA breach scope, review credential usage", points: 10, feedback: "Excellent! Comprehensive investigation determines full breach scope and FERPA notification requirements." },
-                                    { text: "Assume only encrypted files were affected", points: 0, feedback: "Ransomware is often deployed after data theft. Assume breach until investigation proves otherwise." },
-                                    { text: "Just restore from backup and resume operations", points: 1, feedback: "Skipping investigation risks missing stolen student data, backdoors, and FERPA breach obligations." }
+                                    { text: "Only the file server logs", points: 2, feedback: "The attackers had 5 days to move laterally. You need to investigate all systems." },
+                                    { text: "Email systems, domain controllers, backups, and credential usage across the network", points: 10, feedback: "Excellent! Comprehensive investigation of lateral movement is critical for full remediation." },
+                                    { text: "Just restore from backups and move on", points: 0, feedback: "Without investigating the full scope, you risk missing backdoors or stolen credentials." },
+                                    { text: "Focus only on systems with encrypted files", points: 3, feedback: "Attackers often deploy ransomware as a distraction. Check for data exfiltration and other compromises." }
                                 ]
                             },
                             {
-                                question: "Forensics show student names, addresses, grades, and SSNs were potentially accessed. What are your FERPA obligations?",
+                                question: "Your investigation reveals credentials were stolen. How do you respond?",
                                 choices: [
-                                    { text: "No notification needed since you recovered the data", points: 0, feedback: "FERPA requires notification when education records are accessed without authorization, regardless of recovery." },
-                                    { text: "Consult legal counsel immediately to determine FERPA breach notification requirements for affected families", points: 10, feedback: "Correct! Unauthorized access to education records triggers FERPA obligations. Legal guidance ensures compliance." },
-                                    { text: "Only notify parents if the attackers publish the data", points: 2, feedback: "FERPA obligations begin with unauthorized access, not just public disclosure. Assess requirements immediately." },
-                                    { text: "Keep it confidential to avoid alarming parents", points: 0, feedback: "Concealing breaches violates FERPA and district policy. Transparency and proper notification are required." }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        title: "Recovery & Future Prevention",
-                        questions: [
-                            {
-                                question: "You're ready to restore operations. What's your recovery priority order for school systems?",
-                                choices: [
-                                    { text: "Start with teacher laptops first so classes can resume", points: 3, feedback: "Endpoints should wait. Restore critical infrastructure (domain controllers, authentication) first." },
-                                    { text: "Critical infrastructure first (domain controllers, authentication), then student systems, then validate each tier", points: 10, feedback: "Perfect! Phased restoration with validation prevents reinfection and ensures stable foundation." },
-                                    { text: "Restore everything simultaneously to minimize downtime for students", points: 2, feedback: "Simultaneous restoration makes it impossible to isolate problems or detect reinfection." },
-                                    { text: "Only restore the student information system since that was attacked", points: 1, feedback: "The attack may have compromised other systems. Complete, systematic restoration is necessary." }
-                                ]
-                            },
-                            {
-                                question: "The superintendent asks how to prevent this from happening again. What's your comprehensive recommendation?",
-                                choices: [
-                                    { text: "Block all email attachments district-wide", points: 3, feedback: "Too restrictive for educational environment. Implement email filtering with proper staff training instead." },
-                                    { text: "Deploy email filtering, endpoint detection, network segmentation, MFA, regular security training, and tested backups", points: 10, feedback: "Excellent! Layered defense-in-depth strategy addresses multiple attack vectors and creates resilient systems." },
-                                    { text: "Just install better antivirus on all computers", points: 4, feedback: "Antivirus alone is insufficient. Modern ransomware requires comprehensive defense-in-depth approach." },
-                                    { text: "Require all teachers to take a one-time cybersecurity class", points: 6, feedback: "Training is important but must be ongoing and combined with technical controls for effective defense." }
-                                ]
-                            },
-                            {
-                                question: "Six months later, you're presenting to the school board about improved security posture. What metrics demonstrate success?",
-                                choices: [
-                                    { text: "Show that no successful ransomware attacks occurred", points: 5, feedback: "Absence of attacks doesn't prove security. Proactive metrics show actual defensive capability." },
-                                    { text: "Present phishing simulation results, backup test success rates, MFA adoption, and incident detection time improvements", points: 10, feedback: "Perfect! These metrics comprehensively measure prevention, detection, and recovery improvements." },
-                                    { text: "Report how much money was saved by not paying ransom", points: 2, feedback: "Cost avoidance doesn't measure security improvements. Focus on proactive defense capabilities." },
-                                    { text: "List all new security software purchased", points: 3, feedback: "Purchases don't equal security. Effectiveness metrics and operational improvements demonstrate value." }
-                                ]
-                            },
-                            {
-                                question: "The school board wants to understand total incident costs for budget planning. What should you include?",
-                                choices: [
-                                    { text: "Only IT staff overtime during recovery", points: 3, feedback: "Overtime is one factor. Include lost instruction time, substitute costs, insurance deductible, and reputation impact." },
-                                    { text: "Downtime costs, lost instruction time, IT response, insurance deductible, legal fees, and communication expenses", points: 10, feedback: "Excellent! Comprehensive cost analysis helps board understand true impact and justify security investments." },
-                                    { text: "Just the cost of new security tools", points: 2, feedback: "New tools are one expense. Board needs full financial impact including operational and educational costs." },
-                                    { text: "The ransom amount you didn't pay", points: 0, feedback: "Ransom is theoretical. Board needs actual costs: response, recovery, legal, communication, and lost services." }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            ddos: {
-                title: "DDoS Attack During Online Learning",
-                description: "Your district's online learning platform and website are under a massive Distributed Denial of Service attack. Students can't access remote classes, and the attack coincides with state-mandated testing week.",
-                icon: "🌐",
-                rounds: [
-                    {
-                        title: "Attack Detection & Initial Response",
-                        questions: [
-                            {
-                                question: "Teachers report students can't access online classes. Monitoring shows network traffic at 200x normal. What's your immediate action?",
-                                choices: [
-                                    { text: "Restart all web servers and tell teachers to wait", points: 2, feedback: "Restarting won't help against DDoS and creates more downtime for students. Activate mitigation services." },
-                                    { text: "Activate DDoS mitigation service, enable rate limiting, and notify GEMA/HS per HB156 within one hour", points: 10, feedback: "Excellent! Proper technical response combined with required Georgia HB156 compliance reporting." },
-                                    { text: "Cancel online classes for the day", points: 3, feedback: "While this may be necessary, first attempt technical mitigation to restore services for students." },
-                                    { text: "Call your ISP to request more bandwidth", points: 4, feedback: "More bandwidth won't stop volumetric DDoS attacks. Specialized mitigation services are required." }
-                                ]
-                            },
-                            {
-                                question: "The attack uses 75,000+ IP addresses worldwide. Meanwhile, you notice unusual login attempts to student accounts. What should you do?",
-                                choices: [
-                                    { text: "Ignore login attempts and focus only on the DDoS", points: 0, feedback: "DDoS attacks often mask credential stuffing. Investigate both simultaneously while maintaining HB156 compliance." },
-                                    { text: "Investigate login attempts immediately, maintain DDoS mitigation, ensure GEMA/HS notification complete", points: 10, feedback: "Perfect! Parallel response to both threats while maintaining compliance protects student data." },
-                                    { text: "Disable all student accounts temporarily", points: 5, feedback: "This prevents learning access during the incident. Better to investigate suspicious logins and implement targeted controls." },
-                                    { text: "Wait until DDoS ends to investigate logins", points: 2, feedback: "Delayed investigation gives attackers more time to access student accounts. Address both threats immediately." }
-                                ]
-                            },
-                            {
-                                question: "You're trying to maintain access for state testing while mitigating the attack. What's your strategy?",
-                                choices: [
-                                    { text: "Prioritize testing traffic through mitigation service and consider alternate testing arrangements with state", points: 10, feedback: "Excellent! Protecting critical testing while maintaining communication with state ensures compliance flexibility." },
-                                    { text: "Cancel all testing until the attack ends", points: 4, feedback: "Before canceling, coordinate with state education department. They may provide extensions or alternatives." },
-                                    { text: "Let teachers administer paper tests instead", points: 6, feedback: "Paper alternatives may help, but requires state approval for standardized testing. Coordinate first." },
-                                    { text: "Tell students to keep trying to access the system", points: 0, feedback: "This frustrates students and wastes resources. Implement technical solutions and communicate alternatives." }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        title: "Mitigation & Protection",
-                        questions: [
-                            {
-                                question: "Your CDN filtered most attack traffic, but now database queries supporting student portals are spiking abnormally. What's happening?",
-                                choices: [
-                                    { text: "The attack shifted to application-layer DDoS targeting your student database", points: 10, feedback: "Correct! Application-layer attacks target backend resources and require different mitigation strategies." },
-                                    { text: "Students are just trying to access classes simultaneously", points: 2, feedback: "Student usage patterns don't match attack signatures. This is likely deliberate application-layer attack." },
-                                    { text: "The database just needs more resources", points: 1, feedback: "Scaling won't help against malicious queries designed to exhaust resources. Need targeted mitigation." },
-                                    { text: "It's unrelated to the DDoS", points: 0, feedback: "Coordinated attacks often include multiple vectors. Treat database issues as part of the attack." }
-                                ]
-                            },
-                            {
-                                question: "How do you protect student data systems against application-layer attacks without disrupting legitimate access?",
-                                choices: [
-                                    { text: "Implement query rate limiting, CAPTCHA for suspicious patterns, aggressive caching, and geo-blocking if appropriate", points: 10, feedback: "Perfect! Multi-layered application defense protects resources while allowing legitimate student access." },
-                                    { text: "Add more database servers immediately", points: 3, feedback: "Scaling alone won't stop malicious queries. Need smart filtering to distinguish attacks from students." },
-                                    { text: "Block all API access temporarily", points: 4, feedback: "This may break mobile apps and learning platforms students depend on. Use targeted rate limiting instead." },
-                                    { text: "Restart the database server", points: 0, feedback: "Restarting doesn't address the attack and denies service to students. Apply mitigation controls instead." }
-                                ]
-                            },
-                            {
-                                question: "The attackers send an email threatening continued attacks unless the district pays Bitcoin. How should you respond?",
-                                choices: [
-                                    { text: "Pay to restore services for students", points: 0, feedback: "Paying encourages future attacks against schools and doesn't guarantee they'll stop." },
-                                    { text: "Continue mitigation, document the extortion, notify law enforcement and insurance, maintain GEMA/HS communication", points: 10, feedback: "Excellent! Professional response with proper documentation and coordination protects district interests." },
-                                    { text: "Have the superintendent respond to the attackers", points: 1, feedback: "Never engage with extortionists. Focus on technical mitigation and legal reporting." },
-                                    { text: "Ignore the email completely", points: 3, feedback: "Document everything for law enforcement and insurance claims while continuing technical response." }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        title: "Recovery & Resilience Building",
-                        questions: [
-                            {
-                                question: "After 48 hours, the attack subsides and services are restored. What's your post-incident priority?",
-                                choices: [
-                                    { text: "Immediately resume normal operations and catch up on delayed testing", points: 3, feedback: "Coordinate with state on testing makeup. First analyze attack patterns and check for collateral damage." },
-                                    { text: "Analyze attack patterns, review logs for account compromises, document lessons learned, coordinate testing makeup", points: 10, feedback: "Perfect! Thorough analysis improves defenses while coordinating educational continuity with stakeholders." },
-                                    { text: "Just strengthen firewall rules and move on", points: 2, feedback: "Firewall improvements alone are insufficient. Need comprehensive analysis and multi-layer improvements." },
-                                    { text: "Wait to see if they attack again during next testing cycle", points: 0, feedback: "Proactive defense improvements are essential. Don't wait for the next attack to improve security." }
-                                ]
-                            },
-                            {
-                                question: "The superintendent and technology committee want to prevent future DDoS attacks. What's your comprehensive recommendation?",
-                                choices: [
-                                    { text: "Subscribe to the largest DDoS protection service available", points: 5, feedback: "Protection services are important but must be part of broader redundancy and resilience strategy." },
-                                    { text: "Implement DDoS protection, redundant infrastructure, failover systems, rate limiting, and tested incident response plans", points: 10, feedback: "Excellent! Layered defense with both prevention and response capabilities ensures educational continuity." },
-                                    { text: "Move all systems to the cloud immediately", points: 4, feedback: "Cloud migration can help but requires proper architecture and DDoS configuration to be effective." },
-                                    { text: "Buy more internet bandwidth from your provider", points: 2, feedback: "Bandwidth alone can't stop modern DDoS attacks that can exceed any school district's capacity." }
-                                ]
-                            },
-                            {
-                                question: "How should you test your DDoS defenses without impacting student learning?",
-                                choices: [
-                                    { text: "Conduct tabletop exercises and work with DDoS mitigation provider for off-hours controlled testing", points: 10, feedback: "Perfect! Simulations and controlled testing validate defenses without disrupting educational services." },
-                                    { text: "Wait for the next real attack to test improvements", points: 0, feedback: "Learning during real attacks puts student services at risk. Test proactively during non-instructional times." },
-                                    { text: "Just monitor your bandwidth usage trends", points: 2, feedback: "Monitoring is passive. Active testing validates your actual response capabilities and team readiness." },
-                                    { text: "Have IT staff read vendor documentation about the protection service", points: 3, feedback: "Understanding tools is important, but hands-on exercises validate actual preparedness and identify gaps." }
-                                ]
-                            },
-                            {
-                                question: "The school board wants to understand the attack's impact for insurance claims and budget planning. What do you present?",
-                                choices: [
-                                    { text: "Just calculate IT staff overtime costs during the incident", points: 2, feedback: "Include lost instruction time, testing delays, substitute teachers, communication costs, and recovery expenses." },
-                                    { text: "Present comprehensive costs: lost instruction hours, testing disruption, IT response, legal fees, insurance deductible, communication", points: 10, feedback: "Excellent! Complete financial and educational impact analysis supports insurance claims and budget justification." },
-                                    { text: "Focus only on the technical details of how you stopped the attack", points: 3, feedback: "Board needs business/educational impact and costs, not just technical details. Show full operational impact." },
-                                    { text: "Downplay the impact to avoid budget scrutiny", points: 0, feedback: "Honest assessment builds credibility and justifies necessary security investments for student protection." }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            phishing: {
-                title: "Phishing Attack Compromising Teacher Credentials",
-                description: "A sophisticated phishing campaign has compromised multiple teacher accounts. Attackers are using these credentials to access student data, grades, and are sending phishing emails to other staff and parents.",
-                icon: "🎣",
-                rounds: [
-                    {
-                        title: "Initial Compromise & Response",
-                        questions: [
-                            {
-                                question: "Security alerts show suspicious logins from foreign IPs for 5 teacher accounts. What's your first action?",
-                                choices: [
-                                    { text: "Immediately suspend all five accounts and force password resets", points: 7, feedback: "Quick containment is good, but also investigate for additional compromises and ensure HB156 reporting." },
-                                    { text: "Suspend accounts, force resets, scan for other compromises, and report to GEMA/HS per HB156 within one hour", points: 10, feedback: "Perfect! Immediate containment plus comprehensive investigation and required Georgia compliance reporting." },
-                                    { text: "Call the teachers to ask if they're traveling abroad", points: 2, feedback: "Secure accounts first, then investigate. Suspicious foreign logins indicate compromise, not travel." },
-                                    { text: "Monitor the accounts to gather intelligence on the attackers", points: 0, feedback: "Leaving compromised accounts active violates response protocols and risks student data exposure." }
-                                ]
-                            },
-                            {
-                                question: "One compromised account belongs to a teacher with grade access to 150 students. What's your immediate concern?",
-                                choices: [
-                                    { text: "The teacher might modify grades", points: 3, feedback: "While possible, bigger concerns are FERPA-protected student data access and potential spread to more accounts." },
-                                    { text: "FERPA-protected student data exposure, grade tampering, and using the account to spread phishing to parents", points: 10, feedback: "Correct! Teacher access enables multiple FERPA violations and secondary attacks on school community." },
-                                    { text: "The teacher's personal email might be compromised too", points: 2, feedback: "Personal email is separate concern. Focus on protecting student data and school systems first." },
-                                    { text: "Only the specific classes that teacher teaches", points: 1, feedback: "Attackers can access all district data the teacher's credentials permit, not just their assigned classes." }
-                                ]
-                            },
-                            {
-                                question: "You discover the phishing emails used a fake 'district IT support' sender asking teachers to verify credentials. How do you respond?",
-                                choices: [
-                                    { text: "Block the sender domain and warn all staff about the phishing campaign", points: 7, feedback: "Good initial response, but also need to report per HB156, contact insurance, and implement email authentication." },
-                                    { text: "Implement email filtering, report to GEMA/HS, alert all staff with phishing indicators, contact insurance, scan for more victims", points: 10, feedback: "Excellent! Comprehensive response combines technical controls, compliance reporting, and community protection." },
-                                    { text: "Discipline teachers who fell for the phishing email", points: 0, feedback: "Punishment discourages future reporting. Focus on training and technical defenses, not blame." },
-                                    { text: "Just forward the phishing email to staff as a warning example", points: 3, feedback: "Don't forward malicious emails. Send cleaned notification with indicators and proper security guidance." }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        title: "Investigation & Data Protection",
-                        questions: [
-                            {
-                                question: "Investigation reveals attackers accessed student records including names, grades, IEP documents, and home addresses. What are your FERPA obligations?",
-                                choices: [
-                                    { text: "No notification needed since you recovered account access", points: 0, feedback: "FERPA requires assessment when education records are accessed without authorization, regardless of recovery." },
-                                    { text: "Consult legal counsel immediately to determine FERPA notification requirements for affected students and families", points: 10, feedback: "Correct! Unauthorized access to education records triggers potential FERPA obligations. Get legal guidance now." },
-                                    { text: "Only notify parents if student SSNs were accessed", points: 3, feedback: "All education records are FERPA-protected, not just SSNs. Assess full breach scope with legal counsel." },
-                                    { text: "Wait to see if data appears online before notifying", points: 0, feedback: "FERPA obligations begin with unauthorized access. Proactive assessment and notification are required." }
-                                ]
-                            },
-                            {
-                                question: "Attackers are using compromised teacher accounts to send phishing emails to parents requesting student information. How do you stop the spread?",
-                                choices: [
-                                    { text: "Disable all district email temporarily", points: 2, feedback: "Complete email shutdown disrupts parent communication. Use targeted controls and filtering instead." },
-                                    { text: "Implement email filtering rules, force district-wide MFA, send alerts to parents and staff, monitor for new compromises", points: 10, feedback: "Perfect! Multi-layered response combines technical controls with community awareness and ongoing monitoring." },
-                                    { text: "Just tell parents to ignore emails asking for student information", points: 4, feedback: "Parent awareness helps, but technical controls are essential when attackers actively operate inside your systems." },
-                                    { text: "Only disable accounts that send phishing emails", points: 5, feedback: "Reactive disabling helps but insufficient. Need proactive measures like MFA to prevent new compromises." }
-                                ]
-                            },
-                            {
-                                question: "You find attackers created a hidden 'tech_admin' account that had access for 5 days. What's your response?",
-                                choices: [
-                                    { text: "Delete the rogue account and change all admin passwords", points: 5, feedback: "Deletion and password changes help, but must investigate what they accessed during those 5 days." },
-                                    { text: "Remove account, audit all actions it performed, check for backdoors, review all privileged accounts, assess student data exposure", points: 10, feedback: "Excellent! Comprehensive investigation determines full scope and identifies any lingering access or student data breaches." },
-                                    { text: "Report the incident to local police", points: 3, feedback: "Law enforcement contact is appropriate, but first investigate the technical scope and report per HB156." },
-                                    { text: "Keep the rogue account active to monitor attacker behavior", points: 0, feedback: "Never leave compromised accounts active with student data access. Immediate removal is required." }
+                                    { text: "Force password reset for all users and implement MFA immediately", points: 10, feedback: "Perfect! Credential rotation and MFA are essential to prevent unauthorized access." },
+                                    { text: "Only reset passwords for users whose files were encrypted", points: 3, feedback: "If credentials were stolen, all accounts are at risk, not just those with encrypted files." },
+                                    { text: "Monitor the accounts for suspicious activity", points: 5, feedback: "Monitoring alone is insufficient. You must assume credentials are compromised and reset them." },
+                                    { text: "Wait to see if the attackers come back", points: 0, feedback: "Waiting gives attackers continued access. Immediate credential rotation is necessary." }
                                 ]
                             }
                         ]
@@ -462,39 +231,263 @@
                         title: "Recovery & Prevention",
                         questions: [
                             {
-                                question: "After containing the incident, what's your top priority for preventing similar phishing attacks?",
+                                question: "You're ready to restore operations. What's your recovery priority order?",
                                 choices: [
-                                    { text: "Mandatory one-time cybersecurity training for all teachers", points: 6, feedback: "Training helps but must be ongoing and combined with technical controls for effective defense." },
-                                    { text: "Deploy district-wide MFA, implement email authentication (SPF/DMARC/DKIM), phishing simulations, ongoing training", points: 10, feedback: "Perfect! Technical controls create defense-in-depth that doesn't rely solely on user vigilance." },
-                                    { text: "Block all external emails from reaching staff", points: 2, feedback: "Too restrictive for schools that need parent and community communication. Use smart filtering instead." },
-                                    { text: "Fire IT staff who didn't prevent the attack", points: 0, feedback: "Phishing attacks target users, not IT failures. Focus on systematic improvements, not blame." }
+                                    { text: "Restore all systems simultaneously to minimize downtime", points: 3, feedback: "Simultaneous restoration makes it harder to monitor for reinfection and isolate problems." },
+                                    { text: "Critical systems first, then validate each before proceeding to the next tier", points: 10, feedback: "Excellent! Phased restoration with validation prevents reinfection and ensures stability." },
+                                    { text: "Restore the file server first since that's what was encrypted", points: 5, feedback: "File server may be important, but critical infrastructure like domain controllers should come first." },
+                                    { text: "Start with end-user workstations first", points: 2, feedback: "Infrastructure should be restored before endpoints to ensure a secure foundation." }
                                 ]
                             },
                             {
-                                question: "The superintendent asks about reporting requirements. Besides GEMA/HS, who else should be notified?",
+                                question: "Management asks how to prevent this from happening again. What's your TOP recommendation?",
                                 choices: [
-                                    { text: "No one else since you reported to GEMA/HS already", points: 2, feedback: "Also need insurance notification and legal assessment for FERPA requirements. Compliance is multi-layered." },
-                                    { text: "Insurance agency immediately, legal counsel for FERPA assessment, and potentially law enforcement for criminal investigation", points: 10, feedback: "Excellent! Comprehensive notification ensures insurance coverage, legal compliance, and criminal investigation support." },
-                                    { text: "Just the school board at their next meeting", points: 3, feedback: "Board needs immediate notification for major incidents, plus insurance and legal counsel require prompt contact." },
-                                    { text: "Only the affected teachers and their principals", points: 1, feedback: "Incident requires broader stakeholder notification including insurance, legal, law enforcement, and leadership." }
+                                    { text: "Implement comprehensive security awareness training and phishing simulations", points: 8, feedback: "Training is important but should be part of a layered defense strategy." },
+                                    { text: "Deploy endpoint detection and response (EDR), email filtering, network segmentation, MFA, and regular backup testing", points: 10, feedback: "Perfect! A layered security approach addresses multiple attack vectors and detection points." },
+                                    { text: "Install better antivirus software", points: 4, feedback: "Antivirus alone is insufficient. Modern ransomware often evades signature-based detection." },
+                                    { text: "Block all email attachments", points: 3, feedback: "While this reduces risk, it's impractical and doesn't address other attack vectors." }
                                 ]
                             },
                             {
-                                question: "Six months later, how do you demonstrate to the school board that security improvements are working?",
+                                question: "Six months later, you're reviewing the incident. What metrics should you track to measure your improved security posture?",
                                 choices: [
-                                    { text: "Show that no phishing attacks have succeeded since the incident", points: 5, feedback: "Absence of known breaches doesn't prove security. Need proactive metrics showing defensive capability." },
-                                    { text: "Present MFA adoption rates, phishing simulation results, time-to-detect improvements, and security training completion", points: 10, feedback: "Perfect! Comprehensive metrics measure prevention, detection, response, and awareness improvements across district." },
-                                    { text: "Count how many phishing emails are now blocked by filters", points: 6, feedback: "Email blocking is one metric but doesn't show if users would click or if credentials would be compromised." },
-                                    { text: "Report on security software purchases made", points: 2, feedback: "Purchases don't equal security. Board needs effectiveness metrics and operational improvement evidence." }
+                                    { text: "Number of detected phishing attempts, time to detect threats, backup restoration success rate, and MFA adoption", points: 10, feedback: "Excellent! These metrics comprehensively measure prevention, detection, and recovery capabilities." },
+                                    { text: "Just count how many phishing emails were blocked", points: 4, feedback: "Blocking metrics are useful but incomplete. You need detection time, response capability, and recovery metrics." },
+                                    { text: "Track how much money was saved by not paying the ransom", points: 2, feedback: "Cost savings don't measure security improvement. Focus on prevention and response capabilities." },
+                                    { text: "Monitor for any new ransomware attacks", points: 5, feedback: "Absence of attacks doesn't mean you're secure. Proactive metrics measure your actual security posture." }
                                 ]
                             },
                             {
-                                question: "What should be included in your final incident report to the school board and administration?",
+                                question: "The executive team wants to understand the total cost of this incident for budgeting. What should you include?",
                                 choices: [
-                                    { text: "Technical timeline and list of compromised accounts only", points: 3, feedback: "Board needs business impact, educational disruption, costs, FERPA implications, and strategic recommendations." },
-                                    { text: "Attack timeline, student data impact, costs, FERPA assessment, response actions, and strategic security recommendations", points: 10, feedback: "Perfect! Comprehensive reporting helps board understand risks and make informed security investment decisions." },
-                                    { text: "Focus only on how well IT staff responded to minimize criticism", points: 2, feedback: "Honest assessment of impact and gaps builds trust. Include both successes and improvement opportunities." },
-                                    { text: "Minimize the incident details to avoid alarming the community", points: 0, feedback: "Board needs full facts for governance. Transparency enables proper oversight and security investment decisions." }
+                                    { text: "Only the cost of new security tools purchased", points: 2, feedback: "Security tools are just one component. Include all direct and indirect costs." },
+                                    { text: "Downtime costs, incident response, lost productivity, customer impact, regulatory fines, and reputation damage", points: 10, feedback: "Perfect! Comprehensive cost analysis helps justify security investments and shows true impact." },
+                                    { text: "The ransom amount that wasn't paid", points: 0, feedback: "The ransom is just one potential cost. Many other expenses resulted from this incident." },
+                                    { text: "Staff overtime during recovery", points: 4, feedback: "Overtime is one factor, but you need a complete picture including lost revenue and customer impact." }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            ddos: {
+                title: "DDoS Attack on Web Services",
+                description: "Your organization's public-facing website and services are under a massive Distributed Denial of Service attack, making them unavailable to legitimate users.",
+                icon: "🌐",
+                rounds: [
+                    {
+                        title: "Attack Detection",
+                        questions: [
+                            {
+                                question: "Your website becomes unresponsive and monitoring shows traffic at 100x normal levels. What's your immediate action?",
+                                choices: [
+                                    { text: "Restart all web servers to clear connections", points: 2, feedback: "Restarting servers won't help against a DDoS and creates more downtime." },
+                                    { text: "Activate DDoS mitigation service and enable rate limiting", points: 10, feedback: "Correct! DDoS mitigation and rate limiting are the proper immediate responses." },
+                                    { text: "Block all international traffic", points: 5, feedback: "This might help temporarily but could block legitimate users and sophisticated attacks use domestic hosts." },
+                                    { text: "Call your ISP to get more bandwidth", points: 3, feedback: "More bandwidth won't help against volumetric DDoS attacks that can scale beyond your capacity." }
+                                ]
+                            },
+                            {
+                                question: "Your DDoS mitigation shows the attack is coming from 50,000+ IP addresses worldwide. What type of attack is this likely?",
+                                choices: [
+                                    { text: "A botnet-driven attack requiring sophisticated mitigation", points: 10, feedback: "Correct! Large-scale distributed attacks indicate botnet involvement." },
+                                    { text: "A simple flood that you can block manually", points: 1, feedback: "The scale indicates this is sophisticated and requires automated mitigation." },
+                                    { text: "An internal attacker testing your systems", points: 0, feedback: "The global distribution indicates an external, coordinated attack." },
+                                    { text: "Legitimate traffic spike from a viral post", points: 2, feedback: "Legitimate spikes don't come from compromised hosts worldwide in attack patterns." }
+                                ]
+                            },
+                            {
+                                question: "While mitigating the DDoS, you notice unusual admin login attempts. What should you do?",
+                                choices: [
+                                    { text: "Ignore them and focus solely on the DDoS", points: 0, feedback: "The DDoS might be a smokescreen for another attack. Investigate both simultaneously." },
+                                    { text: "Immediately investigate login attempts, maintain DDoS mitigation, and notify GEMA/HS within one hour per HB156", points: 10, feedback: "Excellent! DDoS attacks often distract from credential stuffing. Georgia HB156 requires reporting cyber incidents within one hour." },
+                                    { text: "Disable all admin accounts temporarily", points: 6, feedback: "This protects accounts but may prevent legitimate administrators from responding. Also, ensure HB156 reporting compliance." },
+                                    { text: "Focus on DDoS first, then investigate logins later", points: 4, feedback: "Delayed investigation gives attackers more time. Address both threats in parallel and report to GEMA/HS within one hour." }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Attack Mitigation",
+                        questions: [
+                            {
+                                question: "Your CDN has filtered most attack traffic, but database queries are now spiking. What's happening?",
+                                choices: [
+                                    { text: "The attack shifted to an application-layer DDoS targeting your database", points: 10, feedback: "Correct! Application-layer attacks target backend resources and are harder to mitigate." },
+                                    { text: "Your database just needs more resources", points: 2, feedback: "More resources won't help if malicious queries are deliberately consuming them." },
+                                    { text: "It's unrelated to the DDoS attack", points: 0, feedback: "Coincidental spikes during a DDoS are likely part of the attack." },
+                                    { text: "Legitimate users are finally getting through", points: 3, feedback: "Legitimate traffic wouldn't cause database query spikes in attack patterns." }
+                                ]
+                            },
+                            {
+                                question: "How do you protect against application-layer attacks targeting your database?",
+                                choices: [
+                                    { text: "Implement query rate limiting, CAPTCHAs for suspicious patterns, and cache aggressive responses", points: 10, feedback: "Perfect! Multi-layered application defense protects against sophisticated attacks." },
+                                    { text: "Add more database servers", points: 3, feedback: "Scaling resources alone won't stop malicious queries designed to exhaust resources." },
+                                    { text: "Block all API access temporarily", points: 5, feedback: "This protects the database but may impact legitimate services depending on the API." },
+                                    { text: "Restart the database server", points: 1, feedback: "Restarting doesn't address the attack and creates more downtime." }
+                                ]
+                            },
+                            {
+                                question: "The attackers sent a ransom email threatening to continue the DDoS unless you pay. How do you respond?",
+                                choices: [
+                                    { text: "Pay to stop the attack and restore services", points: 0, feedback: "Paying encourages future attacks and doesn't guarantee they'll stop." },
+                                    { text: "Continue mitigation efforts, document the extortion attempt, and report to law enforcement", points: 10, feedback: "Excellent! Professional mitigation, documentation, and reporting are the proper response." },
+                                    { text: "Ignore the email and hope they stop", points: 2, feedback: "Document everything for law enforcement while continuing active mitigation." },
+                                    { text: "Negotiate a lower ransom amount", points: 0, feedback: "Never negotiate with attackers. Focus on technical mitigation and legal reporting." }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Recovery & Resilience",
+                        questions: [
+                            {
+                                question: "After 36 hours, the attack subsides. What's your post-incident priority?",
+                                choices: [
+                                    { text: "Immediately return to normal operations", points: 3, feedback: "Rushing back to normal may miss lingering threats or damage from the attack." },
+                                    { text: "Analyze attack patterns, review logs for other compromises, and document lessons learned", points: 10, feedback: "Perfect! Thorough analysis prevents future attacks and identifies any collateral damage." },
+                                    { text: "Just strengthen your firewall rules", points: 4, feedback: "Firewall improvements alone are insufficient. You need comprehensive analysis and improvements." },
+                                    { text: "Wait to see if they attack again", points: 0, feedback: "Proactive defense improvements are essential, not waiting for the next attack." }
+                                ]
+                            },
+                            {
+                                question: "Management wants to prevent future DDoS attacks. What's your comprehensive strategy?",
+                                choices: [
+                                    { text: "Buy the biggest DDoS protection service available", points: 5, feedback: "Protection services are important but must be part of a broader strategy." },
+                                    { text: "Implement DDoS protection, redundant infrastructure, rate limiting, WAF, and incident response plans", points: 10, feedback: "Excellent! Layered defense with both prevention and response capabilities is essential." },
+                                    { text: "Move everything to the cloud", points: 4, feedback: "Cloud can help but doesn't automatically prevent DDoS attacks without proper configuration." },
+                                    { text: "Get more bandwidth from your ISP", points: 2, feedback: "Bandwidth alone can't stop modern DDoS attacks that can scale to terabits per second." }
+                                ]
+                            },
+                            {
+                                question: "How should you test your DDoS defenses going forward?",
+                                choices: [
+                                    { text: "Regular DDoS simulation exercises with your mitigation provider", points: 10, feedback: "Perfect! Tabletop exercises and controlled testing validate your defenses and procedures." },
+                                    { text: "Wait for the next real attack to test defenses", points: 0, feedback: "Learning during a real attack puts your business at risk. Test proactively." },
+                                    { text: "Just monitor your bandwidth usage", points: 2, feedback: "Monitoring alone doesn't test your actual response capabilities and mitigation effectiveness." },
+                                    { text: "Read vendor documentation about the protection service", points: 3, feedback: "Understanding your tools is good, but practical testing validates your actual preparedness." }
+                                ]
+                            },
+                            {
+                                question: "Your analysis reveals the attack cost $250,000 in lost revenue and response costs. How do you present this to executives?",
+                                choices: [
+                                    { text: "Focus on the technical details of how you stopped the attack", points: 4, feedback: "Technical details are important but executives need business impact and future risk mitigation." },
+                                    { text: "Present total cost, business impact, future risk, and ROI of proposed security improvements", points: 10, feedback: "Excellent! Business-focused analysis with risk-based recommendations resonates with executives." },
+                                    { text: "Ask for unlimited security budget to prevent all future attacks", points: 2, feedback: "Unrealistic requests undermine credibility. Present measured, justified recommendations." },
+                                    { text: "Downplay the costs to avoid budget scrutiny", points: 0, feedback: "Honest assessment builds trust and justifies necessary security investments." }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            phishing: {
+                title: "Phishing Attack with Compromised Credentials",
+                description: "A sophisticated phishing campaign has compromised multiple user credentials, and attackers are actively using them to access systems and spread laterally through your network.",
+                icon: "🎣",
+                rounds: [
+                    {
+                        title: "Initial Compromise",
+                        questions: [
+                            {
+                                question: "Your security alerts show successful logins from suspicious locations for 3 user accounts. What's your first move?",
+                                choices: [
+                                    { text: "Immediately disable all three accounts", points: 8, feedback: "Quick containment is good, but you should also investigate scope and report to GEMA/HS within one hour per HB156." },
+                                    { text: "Suspend accounts, force password resets, analyze for other compromises, and notify GEMA/HS per HB156", points: 10, feedback: "Excellent! Immediate containment plus investigation and Georgia-required reporting within one hour prevents further spread." },
+                                    { text: "Call the users to verify if they're traveling", points: 3, feedback: "While verification is useful, you should secure accounts first, investigate, then report to GEMA/HS within one hour." },
+                                    { text: "Monitor the accounts to gather intelligence", points: 0, feedback: "Leaving compromised accounts active violates incident response best practices and delays required HB156 reporting." }
+                                ]
+                            },
+                            {
+                                question: "One compromised account belonged to a system administrator. What's your immediate concern?",
+                                choices: [
+                                    { text: "The admin's email might be compromised", points: 4, feedback: "Email is a concern, but admin credentials could give access to critical infrastructure." },
+                                    { text: "Privilege escalation, lateral movement, and potential backdoor creation", points: 10, feedback: "Correct! Admin access enables attackers to deeply compromise your infrastructure." },
+                                    { text: "The admin might get in trouble", points: 0, feedback: "Focus on technical security impact, not blame. Security is everyone's responsibility." },
+                                    { text: "Only systems the admin accessed recently", points: 5, feedback: "Attackers can access anything the admin credentials permit, not just recent activities." }
+                                ]
+                            },
+                            {
+                                question: "You discover the phishing emails came from a compromised vendor's email system. How do you respond?",
+                                choices: [
+                                    { text: "Block all email from that vendor", points: 5, feedback: "Blocking helps but may disrupt legitimate business. Implement targeted filtering first." },
+                                    { text: "Contact the vendor, implement email filtering for the threat, and alert other customers", points: 10, feedback: "Perfect! Coordinated response protects everyone while maintaining business relationships." },
+                                    { text: "Just warn your users about emails from that vendor", points: 3, feedback: "User awareness helps but technical controls are needed for protection." },
+                                    { text: "Ignore it since it's the vendor's problem", points: 0, feedback: "Supply chain attacks affect you directly. Proactive coordination is essential." }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Containment & Investigation",
+                        questions: [
+                            {
+                                question: "Your investigation reveals attackers accessed SharePoint and downloaded 500MB of documents. What now?",
+                                choices: [
+                                    { text: "Focus only on blocking further access", points: 4, feedback: "Access control is important but you must also assess data exposure and potential compliance issues." },
+                                    { text: "Analyze what was accessed, classify data sensitivity, assess compliance impact, and notify stakeholders", points: 10, feedback: "Excellent! Comprehensive data breach assessment is critical for legal and business response." },
+                                    { text: "Delete the compromised documents", points: 0, feedback: "Deleting documents doesn't help—the data is already stolen and you destroy evidence." },
+                                    { text: "Wait to see if the data appears publicly", points: 1, feedback: "Assume breach and respond proactively. Waiting increases legal and reputation risk." }
+                                ]
+                            },
+                            {
+                                question: "Attackers are using compromised credentials to send internal phishing emails. How do you stop the spread?",
+                                choices: [
+                                    { text: "Disable all email temporarily", points: 2, feedback: "Shutting down email completely disrupts business unnecessarily." },
+                                    { text: "Implement email filtering rules, force company-wide MFA, send user alerts, and monitor for new compromises", points: 10, feedback: "Perfect! Multi-layered response combines technical controls with user awareness." },
+                                    { text: "Just tell everyone to ignore suspicious emails", points: 3, feedback: "User awareness alone is insufficient when attackers are actively operating inside your network." },
+                                    { text: "Only disable accounts that send phishing emails", points: 6, feedback: "Reactive disabling helps but you need proactive measures to prevent new compromises." }
+                                ]
+                            },
+                            {
+                                question: "You find attackers created a new 'admin' account that went unnoticed for 2 days. What's your response?",
+                                choices: [
+                                    { text: "Delete the rogue account and move on", points: 3, feedback: "Deleting helps but doesn't address what else they did with those privileges for 2 days." },
+                                    { text: "Remove account, review all actions taken with it, check for backdoors, and audit all admin accounts", points: 10, feedback: "Excellent! Comprehensive investigation and account review prevents lingering access." },
+                                    { text: "Change passwords for all admin accounts", points: 6, feedback: "Password changes are good but insufficient without investigating what the rogue account accessed." },
+                                    { text: "Report the security team member who missed it", points: 0, feedback: "Focus on fixing the problem and improving detection, not blame." }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Recovery & Future Prevention",
+                        questions: [
+                            {
+                                question: "After containing the incident, what's your top priority for preventing similar attacks?",
+                                choices: [
+                                    { text: "Mandatory phishing training for all employees", points: 7, feedback: "Training is valuable but should be part of a comprehensive technical defense strategy." },
+                                    { text: "Deploy MFA everywhere, implement email authentication (SPF/DMARC), EDR, and phishing-resistant authentication", points: 10, feedback: "Perfect! Technical controls create defense in depth that doesn't rely solely on user behavior." },
+                                    { text: "Fire employees who clicked phishing links", points: 0, feedback: "Punishment discourages reporting and doesn't address systemic security issues." },
+                                    { text: "Install better email spam filters", points: 5, feedback: "Email filtering helps but sophisticated phishing can bypass filters. Need layered defenses." }
+                                ]
+                            },
+                            {
+                                question: "Management wants to know if you need to report this incident to authorities. What do you advise?",
+                                choices: [
+                                    { text: "No need to report since you contained it", points: 0, feedback: "Georgia HB156 requires reporting to GEMA/HS within one hour regardless of containment. Many other regulations also require breach notification." },
+                                    { text: "Immediately report to GEMA/HS per HB156, then consult legal team for other reporting obligations (GDPR, CCPA, etc.)", points: 10, feedback: "Correct! Georgia HB156 compliance is mandatory within one hour. Legal assessment is essential for additional federal and state requirements." },
+                                    { text: "Only report if customers complain", points: 0, feedback: "Proactive notification is legally required. Georgia HB156 mandates one-hour reporting to GEMA/HS, and many laws require customer notification." },
+                                    { text: "Report to FBI cyber crime division only", points: 5, feedback: "FBI reporting is good, but you MUST report to GEMA/HS within one hour per Georgia HB156. Data protection regulations may require additional notifications." }
+                                ]
+                            },
+                            {
+                                question: "Six months later, how do you measure if your security improvements were effective?",
+                                choices: [
+                                    { text: "Count how many phishing emails are now blocked", points: 6, feedback: "Email blocking is one metric but doesn't show if users would click or if credentials would be compromised." },
+                                    { text: "Track MFA adoption, phishing simulation click rates, time to detect anomalies, and incident response time", points: 10, feedback: "Excellent! Comprehensive metrics measure prevention, detection, and response improvements." },
+                                    { text: "Just check if you've been attacked again", points: 2, feedback: "Absence of known attacks doesn't prove security. Proactive metrics show actual posture improvement." },
+                                    { text: "Survey employees on security awareness", points: 4, feedback: "Awareness surveys are useful but need to be combined with technical metrics and behavioral testing." }
+                                ]
+                            },
+                            {
+                                question: "What should be included in your final incident report to the board of directors?",
+                                choices: [
+                                    { text: "Technical timeline of the attack only", points: 3, feedback: "Board needs business impact, costs, and strategic recommendations, not just technical details." },
+                                    { text: "Attack timeline, business impact, costs, data exposure, remediation actions, and strategic security recommendations", points: 10, feedback: "Perfect! Comprehensive reporting helps board understand risks and make informed security investment decisions." },
+                                    { text: "Focus on how well the team responded", points: 4, feedback: "Team performance matters but board needs full business impact and future risk mitigation strategy." },
+                                    { text: "Minimize the incident to avoid concern", points: 0, feedback: "Honest reporting builds trust and justifies necessary security investments. Never minimize." }
                                 ]
                             }
                         ]
@@ -588,106 +581,101 @@
                 if (selectedScenario === 'ransomware') {
                     if (roundPerformance[0] < 7) {
                         recommendations.push({
-                            title: "Incident Response & Georgia HB156 Compliance",
-                            description: "Your initial response showed gaps in containment and reporting. Review Georgia HB156 requirements for one-hour reporting to GEMA/HS via GTA at (877) 482-3233. Study proper isolation techniques, evidence preservation, and insurance notification procedures."
+                            title: "Incident Response Fundamentals",
+                            description: "Your initial response showed some gaps. Study the NIST Cybersecurity Framework and practice incident containment procedures. Focus on proper isolation techniques and evidence preservation."
                         });
                     }
                     if (roundPerformance[1] < 7) {
                         recommendations.push({
-                            title: "Student Data Protection & FERPA Compliance",
-                            description: "Investigation phase needs improvement. Study FERPA requirements for breach notification when student education records are compromised. Learn about detecting lateral movement and credential theft in school networks."
+                            title: "Digital Forensics & Investigation",
+                            description: "Investigation phase needs improvement. Learn about lateral movement detection, credential theft indicators, and comprehensive threat hunting across networks."
                         });
                     }
                     if (roundPerformance[2] < 7) {
                         recommendations.push({
-                            title: "School System Recovery Planning",
-                            description: "Recovery planning needs attention. Study backup strategies for student information systems, disaster recovery procedures that minimize instructional disruption, and post-incident analysis."
+                            title: "Business Continuity & Recovery",
+                            description: "Recovery planning needs attention. Study backup strategies, disaster recovery procedures, and post-incident analysis techniques."
                         });
                     }
                     recommendations.push({
-                        title: "K-12 Ransomware Prevention",
-                        description: "Study defense-in-depth for schools including email security, endpoint protection, network segmentation, and the 3-2-1 backup rule. Review CISA and MS-ISAC resources specifically for K-12 education."
+                        title: "Ransomware Prevention Best Practices",
+                        description: "Study defense-in-depth strategies including email security, endpoint protection, network segmentation, and the 3-2-1 backup rule (3 copies, 2 different media, 1 offsite)."
                     });
                 } else if (selectedScenario === 'ddos') {
                     if (roundPerformance[0] < 7) {
                         recommendations.push({
-                            title: "DDoS Detection During Critical Periods",
-                            description: "Improve recognition of DDoS attacks during testing windows and online learning. Study volumetric vs application-layer attacks and learn how to prioritize educational services during incidents."
+                            title: "DDoS Attack Recognition",
+                            description: "Improve your ability to identify DDoS attack types and patterns. Study volumetric vs application-layer attacks and learn about botnet indicators."
                         });
                     }
                     if (roundPerformance[1] < 7) {
                         recommendations.push({
-                            title: "Application-Layer Defense for School Systems",
-                            description: "Learn about protecting student portals and learning platforms from sophisticated attacks. Study rate limiting, traffic filtering, and maintaining services during attacks without disrupting student access."
+                            title: "Advanced DDoS Mitigation",
+                            description: "Learn about rate limiting, traffic scrubbing, CDN strategies, and application-layer defense mechanisms. Understanding cloud-based DDoS protection services is essential."
                         });
                     }
                     if (roundPerformance[2] < 7) {
                         recommendations.push({
-                            title: "Educational Continuity & Resilience",
-                            description: "Study redundant architecture for critical educational services, failover mechanisms, and coordination with state education departments during extended outages."
+                            title: "Infrastructure Resilience",
+                            description: "Study redundant architecture design, failover mechanisms, and load balancing. Learn how to build systems that can withstand and recover from attacks."
                         });
                     }
                     recommendations.push({
-                        title: "DDoS Preparedness for Schools",
-                        description: "Create tested response plans for attacks during critical testing periods. Work with DDoS mitigation providers and conduct tabletop exercises during non-instructional time."
+                        title: "DDoS Preparedness Planning",
+                        description: "Create and test DDoS response runbooks. Establish relationships with DDoS mitigation providers and practice regular tabletop exercises."
                     });
                 } else if (selectedScenario === 'phishing') {
                     if (roundPerformance[0] < 7) {
                         recommendations.push({
-                            title: "Teacher Account Protection & Rapid Response",
-                            description: "Improve incident response to teacher credential theft. Study MFA implementation for K-12, proper account suspension procedures, and HB156 reporting requirements for school districts."
+                            title: "Credential Compromise Response",
+                            description: "Improve your incident response to credential theft. Study identity and access management (IAM) principles, and learn proper account suspension and investigation procedures."
                         });
                     }
                     if (roundPerformance[1] < 7) {
                         recommendations.push({
-                            title: "FERPA Breach Assessment & Student Data Protection",
-                            description: "Learn FERPA requirements for unauthorized access to education records. Study how to assess data exposure scope and coordinate with legal counsel for proper breach notification."
+                            title: "Threat Hunting & Lateral Movement Detection",
+                            description: "Learn to identify lateral movement patterns, privilege escalation attempts, and insider threat indicators. Study SIEM and log analysis techniques."
                         });
                     }
                     if (roundPerformance[2] < 7) {
                         recommendations.push({
-                            title: "Long-term Security Culture in Schools",
-                            description: "Focus on sustainable improvements including MFA deployment, ongoing phishing simulations for staff, and security awareness that works in educational environments."
+                            title: "Long-term Security Posture Improvement",
+                            description: "Focus on implementing sustainable security improvements including MFA, zero trust architecture, and security awareness programs."
                         });
                     }
                     recommendations.push({
-                        title: "Phishing Prevention in K-12 Environments",
-                        description: "Study email authentication (SPF, DKIM, DMARC), anti-phishing technologies for schools, and effective security awareness programs for teachers. Review MS-ISAC resources for K-12 specific threats."
+                        title: "Phishing Prevention & Detection",
+                        description: "Study email authentication protocols (SPF, DKIM, DMARC), anti-phishing technologies, and security awareness training best practices. Learn about phishing-resistant authentication methods."
                     });
                 }
 
                 // Add general recommendations based on overall score
                 if (avgScore < 6) {
                     recommendations.push({
-                        title: "Cybersecurity Fundamentals for School IT Staff",
-                        description: "Consider pursuing education-focused security training and certifications. Review MS-ISAC (Multi-State Information Sharing and Analysis Center) resources specifically designed for K-12 cybersecurity."
+                        title: "Cybersecurity Foundations",
+                        description: "Consider pursuing foundational cybersecurity certifications like CompTIA Security+ or Certified Information Systems Security Professional (CISSP) fundamentals."
                     });
                 }
 
-                // Add Georgia HB156 compliance information - ALWAYS INCLUDED
+                // Add Georgia HB156 compliance information
                 recommendations.push({
-                    title: "Georgia HB156 Compliance - CRITICAL REQUIREMENT",
-                    description: "As a Georgia school district, you MUST report cyber incidents to GEMA/HS within ONE HOUR of recognition. Call Georgia Technology Authority (GTA) help desk at (877) 482-3233, Option 2 (available 24/7). State 'Declaring a Cyber-Security Event' and provide incident details. Also contact your insurance agency immediately. Local governments should notify their local Emergency Management Agency (EMA) within one hour. If reporting to federal agencies, notify GEMA/HS within two hours of federal report. Compliance protects your district and ensures access to state cybersecurity resources."
+                    title: "Georgia HB156 Compliance - CRITICAL",
+                    description: "As a Georgia organization, you MUST report cyber incidents to GEMA/HS within ONE HOUR of recognizing the issue. Contact the Georgia Technology Authority (GTA) help desk at (877) 482-3233, Option 2 (available 24/7) and state 'Declaring a Cyber-Security Event.' If reporting to federal agencies, notify GEMA/HS within two hours of the federal report. Failure to comply may result in penalties and limits your access to state cybersecurity resources."
                 });
 
                 recommendations.push({
-                    title: "FERPA & Student Data Protection",
-                    description: "Maintain awareness of FERPA requirements for protecting student education records. Unauthorized access to student data may trigger notification obligations. Always consult legal counsel when student PII is potentially compromised. For students under 13, also consider COPPA implications."
-                });
-
-                recommendations.push({
-                    title: "Continuous Learning & Resources",
-                    description: "Stay updated through K-12 focused resources: MS-ISAC (Multi-State ISAC for schools), CISA K-12 Cybersecurity Toolkit, SANS Security Awareness for Schools, and Georgia GTA cybersecurity resources. Participate in school cybersecurity working groups and tabletop exercises."
+                    title: "Continuous Learning",
+                    description: "Stay updated with latest threats and best practices through resources like SANS Reading Room, CISA Alerts, and industry-specific Information Sharing and Analysis Centers (ISACs)."
                 });
 
                 return recommendations;
             };
 
             const getScoreRating = () => {
-                if (score >= 90) return { text: "Excellent", color: "#4ade80", description: "Outstanding incident response knowledge for school IT!" };
-                if (score >= 75) return { text: "Good", color: "#28ABE2", description: "Solid understanding with some areas to improve." };
-                if (score >= 60) return { text: "Fair", color: "#fbbf24", description: "Basic competency, but significant gaps in compliance and response." };
-                return { text: "Needs Improvement", color: "#ef4444", description: "Additional training strongly recommended before real incidents." };
+                if (score >= 90) return { text: "Excellent", color: "#4ade80", description: "Outstanding cybersecurity response!" };
+                if (score >= 75) return { text: "Good", color: "#28ABE2", description: "Solid understanding with room for improvement." };
+                if (score >= 60) return { text: "Fair", color: "#fbbf24", description: "Basic competency, but significant gaps to address." };
+                return { text: "Needs Improvement", color: "#ef4444", description: "Consider additional training and practice." };
             };
 
             // Home Screen
@@ -695,18 +683,12 @@
                 return (
                     <div className="container">
                         <div className="card" style={{textAlign: 'center', marginTop: '40px'}}>
-                            <h1>🛡️ K-12 Cybersecurity Incident Response</h1>
-                            <p style={{fontSize: '18px', color: '#28ABE2', marginBottom: '10px'}}>
-                                School IT Staff Training - Georgia Districts
+                            <h1>🛡️ Cybersecurity Incident Response</h1>
+                            <p style={{fontSize: '18px', color: '#28ABE2', marginBottom: '30px'}}>
+                                Test your skills in real-world security scenarios
                             </p>
-                            <div className="warning-box" style={{marginTop: '20px', marginBottom: '30px'}}>
-                                <p style={{marginBottom: '8px', fontWeight: 'bold'}}>⚠️ Georgia HB156 Requirement:</p>
-                                <p style={{fontSize: '14px', marginBottom: '0'}}>
-                                    Georgia school districts must report cyber incidents to GEMA/HS within ONE HOUR via GTA help desk: (877) 482-3233, Option 2
-                                </p>
-                            </div>
                             <p style={{marginBottom: '40px', fontSize: '16px', opacity: 0.9}}>
-                                Test your incident response skills in realistic school scenarios. You'll face 3 rounds with increasingly complex decisions.
+                                Choose a scenario to begin. You'll face 3 rounds with increasingly complex decisions.
                                 Each question is worth 10 points. Can you score 100/100?
                             </p>
 
@@ -804,7 +786,7 @@
 
                             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                                 <button className="btn" onClick={restartGame} style={{background: 'rgba(255,255,255,0.1)'}}>
-                                    Exit Training
+                                    Exit Game
                                 </button>
                                 <button 
                                     className="btn" 
@@ -812,7 +794,7 @@
                                     disabled={selectedChoice === null}
                                 >
                                     {currentQuestion === round.questions.length - 1 && currentRound === scenario.rounds.length - 1
-                                        ? 'Complete Training'
+                                        ? 'Finish Game'
                                         : 'Submit Answer'}
                                 </button>
                             </div>
@@ -830,7 +812,7 @@
                 return (
                     <div className="container">
                         <div className="card" style={{marginTop: '40px', textAlign: 'center'}}>
-                            <h1>🎯 Training Complete!</h1>
+                            <h1>🎯 Game Complete!</h1>
                             <div style={{margin: '30px 0'}}>
                                 <div style={{
                                     fontSize: '72px',
@@ -856,7 +838,7 @@
                             </div>
 
                             <button className="btn" onClick={restartGame} style={{marginBottom: '30px'}}>
-                                Try Another Scenario
+                                Play Again
                             </button>
                         </div>
 
@@ -897,9 +879,9 @@
 
                         {/* Recommendations */}
                         <div className="card">
-                            <h2>📚 Training Recommendations</h2>
+                            <h2>📚 Educational Recommendations</h2>
                             <p style={{opacity: 0.8, marginBottom: '25px'}}>
-                                Based on your performance, here are personalized learning recommendations for school IT staff
+                                Based on your performance, here are personalized learning recommendations
                             </p>
 
                             {recommendations.map((rec, index) => (
@@ -912,7 +894,7 @@
 
                         <div className="card" style={{textAlign: 'center'}}>
                             <button className="btn" onClick={restartGame}>
-                                Return to Scenario Selection
+                                Try Another Scenario
                             </button>
                         </div>
                     </div>
